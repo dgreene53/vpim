@@ -1152,6 +1152,24 @@ module Vpim
 
       alias :add_name :name #:nodoc: backwards compatibility
 
+      def add_begin
+        @card << Vpim::DirectoryInfo::Field.create( 'BEGIN', 'VCARD');
+      end
+            
+      def add_end
+        @card << Vpim::DirectoryInfo::Field.create( 'END', 'VCARD' );
+      end
+
+      def add_name2
+        x = Vpim::Vcard::Name.new
+        fn = x.fullname
+        yield x
+        x.fullname.strip!
+        @card << x.encode
+        @card << x.encode_fn
+        self
+      end
+
       # Add an address field, ADR. +address+ is a Vpim::Vcard::Address.
       def add_addr # :yield: address
         x = Vpim::Vcard::Address.new

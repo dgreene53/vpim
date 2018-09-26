@@ -1,4 +1,4 @@
-require 'ubygems'
+require 'rubygems'
 require 'pp'
 require './gemspec'
 require './lib/vpim/version'
